@@ -1,16 +1,16 @@
 import { CreatePublishedProductDto, UpdatePublishedProductDto } from '@/dtos/PublishedProductDto';
-import { PublishedProduct } from '@/entities/PublishedProduct';
+import { PublishedProductEntity } from '@/entities/PublishedProduct';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 export class PublishedProductRepository {
 
-  async getAll(): Promise<PublishedProduct[]> {
+  async getAll(): Promise<PublishedProductEntity[]> {
     return await prisma.publishedProduct.findMany();
   }
 
-  async findOne(id: number): Promise<PublishedProduct | null> {
+  async findOne(id: number): Promise<PublishedProductEntity | null> {
     const published_product = await prisma.publishedProduct.findFirst({
       where: {
         id
@@ -20,7 +20,7 @@ export class PublishedProductRepository {
     return published_product
   }
 
-  async store({name, price}: CreatePublishedProductDto): Promise<PublishedProduct> {
+  async store({name, price}: CreatePublishedProductDto): Promise<PublishedProductEntity> {
     const published_product = await prisma.publishedProduct.create({
       data: {
         name,
@@ -31,7 +31,7 @@ export class PublishedProductRepository {
     return published_product
   }
 
-  async update({ id, name, price }: UpdatePublishedProductDto): Promise<PublishedProduct> {
+  async update({ id, name, price }: UpdatePublishedProductDto): Promise<PublishedProductEntity> {
     const updated_published_product = await prisma.publishedProduct.update({
       where: { id },
       data: {
@@ -44,7 +44,6 @@ export class PublishedProductRepository {
   }
 
   async delete(id: number): Promise<void> {
-    console.log(id)
     await prisma.publishedProduct.delete({
       where: { id }
     });

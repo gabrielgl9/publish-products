@@ -1,3 +1,3 @@
 import { PublishedProduct } from "@prisma/client";
 
-export interface PublishedProduct extends PublishedProduct {};
+export interface PublishedProductEntity extends PublishedProduct {};

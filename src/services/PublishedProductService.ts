@@ -1,4 +1,4 @@
-import { PublishedProduct } from '@/entities/PublishedProduct';
+import { PublishedProductEntity } from '@/entities/PublishedProduct';
 import { PublishedProductRepository } from './../repositories/PublishedProductRepository';
 import { CreatePublishedProductDto, UpdatePublishedProductDto } from '@/dtos/PublishedProductDto';
 
@@ -7,7 +7,7 @@ export class PublishedProductService {
     protected published_product_repository: PublishedProductRepository
   ) {}
 
-  async findOne(id: number): Promise<PublishedProduct> {
+  async findOne(id: number): Promise<PublishedProductEntity> {
     const published_product = await this.published_product_repository.findOne(id);
     if (!published_product) {
       throw new Error("published product doesn't exists");
@@ -16,11 +16,11 @@ export class PublishedProductService {
     return published_product
   }
 
-  async getAll(): Promise<PublishedProduct[]> {
+  async getAll(): Promise<PublishedProductEntity[]> {
     return await this.published_product_repository.getAll();
   }
 
-  async store({name, price}: CreatePublishedProductDto): Promise<PublishedProduct> {
+  async store({name, price}: CreatePublishedProductDto): Promise<PublishedProductEntity> {
     const published_product = this.published_product_repository.store({
       name, price
     })
@@ -28,7 +28,7 @@ export class PublishedProductService {
     return published_product
   }
 
-  async update({ id, name, price }: UpdatePublishedProductDto): Promise<PublishedProduct> {
+  async update({ id, name, price }: UpdatePublishedProductDto): Promise<PublishedProductEntity> {
     const published_product_exists = await this.published_product_repository.findOne(id);
     if (!published_product_exists) {
       throw new Error("published product doesn't exists");
@@ -45,8 +45,6 @@ export class PublishedProductService {
       throw new Error("published product doesn't exists");
     }
 
-    const published_product_deleted = await this.published_product_repository.delete(id);
-
-    return published_product_deleted
+    await this.published_product_repository.delete(id);
   }
 }

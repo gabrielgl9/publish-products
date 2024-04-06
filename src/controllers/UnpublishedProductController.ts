@@ -1,9 +1,11 @@
 // publishedProductController.ts
-import { PublishedProductService } from '@/services/PublishedProductService';
 
-export class PublishedProductController {
+import { UnpublishedProductService } from "@/services/UnpublishedProductService";
+
+
+export class UnpublishedProductController {
   constructor(
-    protected published_product_service: PublishedProductService
+    protected unpublished_product_service: UnpublishedProductService
   ) {}
 
   async findOne(request: Request): Promise<Response> {
@@ -11,8 +13,8 @@ export class PublishedProductController {
       const pathname = request.url.split('/');
       const id = Number(pathname[pathname.length - 1]);
 
-      const updated_published_product = await this.published_product_service.findOne(id);
-      return Response.json(updated_published_product, { status: 200 });
+      const updated_unpublished_product = await this.unpublished_product_service.findOne(id);
+      return Response.json(updated_unpublished_product, { status: 200 });
     } catch (error: any) {
       return Response.json({ message: error.message }, { status: 400 });
     }
@@ -20,8 +22,8 @@ export class PublishedProductController {
 
   async getAll(): Promise<Response> {
     try {
-      const published_products = await this.published_product_service.getAll();
-      return Response.json({ data: published_products }, { status: 200 });
+      const unpublished_products = await this.unpublished_product_service.getAll();
+      return Response.json({ data: unpublished_products }, { status: 200 });
     } catch (error: any) {
       return Response.json({ message: error.message }, { status: 400 });
     }
@@ -31,8 +33,8 @@ export class PublishedProductController {
     const body = await request.json();
 
     try {
-      const published_product = await this.published_product_service.store(body);
-      return Response.json(published_product, { status: 201 });
+      const unpublished_product = await this.unpublished_product_service.store(body);
+      return Response.json(unpublished_product, { status: 201 });
     } catch (error: any) {
       return Response.json({ message: error.message }, { status: 400 });
     }
@@ -44,8 +46,8 @@ export class PublishedProductController {
       const id = Number(pathname[pathname.length - 1]);
 
       const body = await request.json();
-      const updated_published_product = await this.published_product_service.update({id, ...body});
-      return Response.json(updated_published_product, { status: 200 });
+      const updated_unpublished_product = await this.unpublished_product_service.update({id, ...body});
+      return Response.json(updated_unpublished_product, { status: 200 });
     } catch (error: any) {
       return Response.json({ message: error.message }, { status: 400 });
     }
@@ -56,8 +58,8 @@ export class PublishedProductController {
       const pathname = request.url.split('/');
       const id = Number(pathname[pathname.length - 1]);
       
-      await this.published_product_service.delete(id);
-      return Response.json({ message: 'Published product deleted successfully' }, { status: 203 });
+      await this.unpublished_product_service.delete(id);
+      return Response.json({ message: 'Unpublished product deleted successfully' }, { status: 203 });
     } catch (error: any) {
       return Response.json({ message: error.message }, { status: 400 });
     }
