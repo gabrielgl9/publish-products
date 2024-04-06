@@ -8,6 +8,18 @@ export class PublishedProductController {
     this.publishedProductService = publishedProductService;
   }
 
+  async findOne(request: Request): Promise<Response> {
+    try {
+      const pathname = request.url.split('/');
+      const id = Number(pathname[pathname.length - 1]);
+
+      const updated_published_product = await this.publishedProductService.findOne(id);
+      return Response.json(updated_published_product, { status: 200 });
+    } catch (error: any) {
+      return Response.json({ message: error.message }, { status: 400 });
+    }
+  }
+
   async getAll(): Promise<Response> {
     try {
       const published_products = await this.publishedProductService.getAll();

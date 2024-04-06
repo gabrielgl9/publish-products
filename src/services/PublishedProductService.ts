@@ -7,6 +7,15 @@ export class PublishedProductService {
     protected published_product_repository: PublishedProductRepository
   ) {}
 
+  async findOne(id: number): Promise<PublishedProduct> {
+    const published_product = await this.published_product_repository.findOne(id);
+    if (!published_product) {
+      throw new Error("published product doesn't exists");
+    }
+    
+    return published_product
+  }
+
   async getAll(): Promise<PublishedProduct[]> {
     return await this.published_product_repository.getAll();
   }
