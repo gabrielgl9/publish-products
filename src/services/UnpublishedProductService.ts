@@ -1,6 +1,6 @@
 import { CreateUnpublishedProductDto, UpdateUnpublishedProductDto } from '@/dtos/UnpublishedProductDto';
-import { UnpublishedProductEntity } from '@/entities/UnPublishedProduct';
-import { UnpublishedProductRepository } from '@/repositories/UnPublishedProductRepository';
+import { UnpublishedProductEntity } from '@/entities/UnpublishedProduct';
+import { UnpublishedProductRepository } from '@/repositories/UnpublishedProductRepository';
 
 export class UnpublishedProductService {
   constructor(

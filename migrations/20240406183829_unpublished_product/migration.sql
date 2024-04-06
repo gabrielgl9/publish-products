@@ -13,7 +13,7 @@ CREATE TABLE "unpublished_product" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
     "price" DOUBLE PRECISION,
-    "published_product_id" INTEGER NOT NULL,
+    "published_product_id" INTEGER,
     "operation_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -32,3 +32,5 @@ ALTER TABLE "unpublished_product" ADD CONSTRAINT "unpublished_product_published_
 
 -- AddForeignKey
 ALTER TABLE "unpublished_product" ADD CONSTRAINT "unpublished_product_operation_id_fkey" FOREIGN KEY ("operation_id") REFERENCES "operation"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE "unpublished_product" ALTER COLUMN "published_product_id" DROP NOT NULL;

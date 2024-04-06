@@ -1,5 +1,5 @@
-import { CreateUnpublishedProductDto } from '@/dtos/UnpublishedProductDto';
-import { UnpublishedProductEntity } from '@/entities/UnPublishedProduct';
+import { CreateUnpublishedProductDto, UpdateUnpublishedProductDto } from '@/dtos/UnpublishedProductDto';
+import { UnpublishedProductEntity } from '@/entities/UnpublishedProduct';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -21,24 +21,27 @@ export class UnpublishedProductRepository {
   }
 
   async store({name, price, operation_id, published_product_id}: CreateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
+    console.log('oiii', {name, price, operation_id, published_product_id}) 
     const unpublished_product = await prisma.unpublishedProduct.create({
       data: {
         name,
         price,
         operation_id,
-        published_product_id
+        published_product_id: published_product_id ?? null
       }
     });
 
     return unpublished_product
   }
 
-  async update({ id, name, price }: UpdateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
+  async update({ id, name, price, operation_id, published_product_id }: UpdateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
     const updated_unpublished_product = await prisma.unpublishedProduct.update({
       where: { id },
       data: {
         name,
-        price
+        price,
+        operation_id,
+        published_product_id
       }
     });
 

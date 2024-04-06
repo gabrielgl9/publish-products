@@ -8,36 +8,36 @@ generator client {
 }
 
 model PublishedProduct {
-  id                 Int                 @id @default(autoincrement())
-  name               String
-  price              Float
-  created_at         DateTime            @default(now())
-  updated_at         DateTime            @updatedAt
-  UnpublishedProduct UnpublishedProduct?
+  id                   Int                  @id @default(autoincrement())
+  name                 String
+  price                Float
+  created_at           DateTime             @default(now())
+  updated_at           DateTime             @updatedAt
+  unpublished_products UnpublishedProduct[]
 
   @@map("published_product")
 }
 
 model Operation {
-  id                 Int                 @id @default(autoincrement())
-  description        String
-  created_at         DateTime            @default(now())
-  updated_at         DateTime            @updatedAt
-  UnpublishedProduct UnpublishedProduct?
+  id                   Int                  @id @default(autoincrement())
+  description          String
+  created_at           DateTime             @default(now())
+  updated_at           DateTime             @updatedAt
+  unpublished_products UnpublishedProduct[]
 
   @@map("operation")
 }
 
 model UnpublishedProduct {
-  id                   Int              @id @default(autoincrement())
+  id                   Int               @id @default(autoincrement())
   name                 String?
   price                Float?
-  published_product    PublishedProduct @relation(fields: [published_product_id], references: [id])
-  published_product_id Int              @unique
+  published_product    PublishedProduct? @relation(fields: [published_product_id], references: [id])
+  published_product_id Int?
   operation            Operation        @relation(fields: [operation_id], references: [id])
-  operation_id         Int              @unique
-  created_at           DateTime         @default(now())
-  updated_at           DateTime         @updatedAt
+  operation_id         Int
+  created_at           DateTime          @default(now())
+  updated_at           DateTime          @updatedAt
 
   @@map("unpublished_product")
 }
