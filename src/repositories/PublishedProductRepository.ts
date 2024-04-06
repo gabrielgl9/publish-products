@@ -7,11 +7,11 @@ const prisma = new PrismaClient();
 export class PublishedProductRepository {
 
   async getAll(): Promise<PublishedProduct[]> {
-    return await prisma.published_product.findMany();
+    return await prisma.publishedProduct.findMany();
   }
 
   async findOne(id: number): Promise<PublishedProduct | null> {
-    const published_product = await prisma.published_product.findFirst({
+    const published_product = await prisma.publishedProduct.findFirst({
       where: {
         id
       }
@@ -21,7 +21,7 @@ export class PublishedProductRepository {
   }
 
   async store({name, price}: CreatePublishedProductDto): Promise<PublishedProduct> {
-    const published_product = await prisma.published_product.create({
+    const published_product = await prisma.publishedProduct.create({
       data: {
         name,
         price
@@ -32,7 +32,7 @@ export class PublishedProductRepository {
   }
 
   async update({ id, name, price }: UpdatePublishedProductDto): Promise<PublishedProduct> {
-    const updated_published_product = await prisma.published_product.update({
+    const updated_published_product = await prisma.publishedProduct.update({
       where: { id },
       data: {
         name,
@@ -45,7 +45,7 @@ export class PublishedProductRepository {
 
   async delete(id: number): Promise<void> {
     console.log(id)
-    await prisma.published_product.delete({
+    await prisma.publishedProduct.delete({
       where: { id }
     });
   }

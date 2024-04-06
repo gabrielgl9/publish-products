@@ -1,3 +1,3 @@
-import { published_product } from "@prisma/client";
+import { PublishedProduct } from "@prisma/client";
 
-export interface PublishedProduct extends published_product {};
+export interface PublishedProduct extends PublishedProduct {};

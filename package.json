@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed:operations": "node seeders/OperationSeeder.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.12.1",
