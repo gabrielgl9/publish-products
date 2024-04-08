@@ -29,10 +29,9 @@ export class UnpublishedProductController {
     }
   }
 
-  async store(request: Request): Promise<Response> {
-    const body = await request.json();
-
+  async store(request: Request): Promise<Response> {    
     try {
+      const body = await request.json();
       const unpublished_product = await this.unpublished_product_service.store(body);
       return Response.json(unpublished_product, { status: 201 });
     } catch (error: any) {

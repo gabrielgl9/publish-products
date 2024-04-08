@@ -7,41 +7,58 @@ const prisma = new PrismaClient();
 export class UnpublishedProductRepository {
 
   async getAll(): Promise<UnpublishedProductEntity[]> {
-    return await prisma.unpublishedProduct.findMany();
+    const unpublishedProducts = await prisma.unpublishedProduct.findMany({
+      include: {
+        new_product: true,
+        deleted_product: true
+      },
+    });
+
+    return unpublishedProducts;
   }
 
-  async findOne(id: number): Promise<UnpublishedProductEntity | null> {
-    const unpublished_product = await prisma.unpublishedProduct.findFirst({
+  async findOne(id: number): Promise<UnpublishedProductEntity> {
+    const unpublished_product = await prisma.unpublishedProduct.findFirstOrThrow({
       where: {
         id
+      },
+      include: {
+        new_product: true,
+        deleted_product: true
       }
     });
 
     return unpublished_product
   }
 
-  async store({name, price, operation_id, published_product_id}: CreateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
-    console.log('oiii', {name, price, operation_id, published_product_id}) 
+  async store({operation_id, deleted_product_id, new_product_id}: CreateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
     const unpublished_product = await prisma.unpublishedProduct.create({
       data: {
-        name,
-        price,
+        deleted_product_id,
         operation_id,
-        published_product_id: published_product_id ?? null
+        new_product_id
+      }, 
+      include: {
+        new_product: true,
+        deleted_product: true
       }
     });
 
     return unpublished_product
   }
 
-  async update({ id, name, price, operation_id, published_product_id }: UpdateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
+  async update({ id, operation_id, deleted_product_id, new_product_id }: UpdateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
+    
     const updated_unpublished_product = await prisma.unpublishedProduct.update({
       where: { id },
       data: {
-        name,
-        price,
         operation_id,
-        published_product_id
+        new_product_id,
+        deleted_product_id
+      }, 
+      include: {
+        new_product: true,
+        deleted_product: true
       }
     });
 
@@ -50,7 +67,7 @@ export class UnpublishedProductRepository {
 
   async delete(id: number): Promise<void> {
     await prisma.unpublishedProduct.delete({
-      where: { id }
+      where: { id },
     });
   }
 }

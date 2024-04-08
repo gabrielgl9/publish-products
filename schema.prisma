@@ -7,13 +7,26 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Product {
+  id                           Int                  @id @default(autoincrement())
+  name                         String
+  price                        Float
+  created_at                   DateTime             @default(now())
+  updated_at                   DateTime             @updatedAt
+  deleted_unpublished_products UnpublishedProduct[] @relation("DeletedUnpublishedProduct")
+  new_unpublished_products     UnpublishedProduct[] @relation("NewUnpublishedProduct")
+  published_products           PublishedProduct[]   @relation()
+
+  @@map("product")
+}
+
 model PublishedProduct {
-  id                   Int                  @id @default(autoincrement())
-  name                 String
-  price                Float
-  created_at           DateTime             @default(now())
-  updated_at           DateTime             @updatedAt
-  unpublished_products UnpublishedProduct[]
+  id          Int      @id @default(autoincrement())
+  observation String?
+  product     Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  product_id  Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   @@map("published_product")
 }
@@ -29,15 +42,15 @@ model Operation {
 }
 
 model UnpublishedProduct {
-  id                   Int               @id @default(autoincrement())
-  name                 String?
-  price                Float?
-  published_product    PublishedProduct? @relation(fields: [published_product_id], references: [id])
-  published_product_id Int?
-  operation            Operation        @relation(fields: [operation_id], references: [id])
-  operation_id         Int
-  created_at           DateTime          @default(now())
-  updated_at           DateTime          @updatedAt
+  id                 Int       @id @default(autoincrement())
+  new_product        Product?  @relation("NewUnpublishedProduct", fields: [new_product_id], references: [id])
+  new_product_id     Int?
+  deleted_product    Product?  @relation("DeletedUnpublishedProduct", fields: [deleted_product_id], references: [id])
+  deleted_product_id Int?
+  operation          Operation @relation(fields: [operation_id], references: [id])
+  operation_id       Int
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
 
   @@map("unpublished_product")
 }

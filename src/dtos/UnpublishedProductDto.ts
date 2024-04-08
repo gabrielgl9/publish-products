@@ -1,14 +1,16 @@
+import { CreateProductDto, UpdateProductDto } from "./ProductDto"
+
 export interface CreateUnpublishedProductDto {
-  name?: string
-  price?: number
-  published_product_id?: number
   operation_id: number
+  deleted_product_id?: number
+  new_product?: CreateProductDto
+  new_product_id?: number
 }
 
 export interface UpdateUnpublishedProductDto {
   id: number
-  name?: string
-  price?: number
-  published_product_id?: number
   operation_id: number
+  deleted_product_id?: number
+  new_product?: UpdateProductDto
+  new_product_id?: number
 }

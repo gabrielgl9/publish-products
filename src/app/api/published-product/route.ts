@@ -7,4 +7,3 @@ const published_product_service = new PublishedProductService(published_product_
 const published_product_controller = new PublishedProductController(published_product_service);
 
 export const GET = published_product_controller.getAll.bind(published_product_controller);
-export const POST = published_product_controller.store.bind(published_product_controller);

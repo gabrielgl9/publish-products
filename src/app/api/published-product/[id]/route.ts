@@ -7,5 +7,3 @@ const published_product_service = new PublishedProductService(published_product_
 const published_product_controller = new PublishedProductController(published_product_service);
 
 export const GET = published_product_controller.findOne.bind(published_product_controller);
-export const PUT = published_product_controller.update.bind(published_product_controller);
-export const DELETE = published_product_controller.delete.bind(published_product_controller);

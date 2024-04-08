@@ -1,9 +1,11 @@
 import { UnpublishedProductController } from "@/controllers/UnpublishedProductController";
-import { UnpublishedProductRepository } from "@/repositories/UnPublishedProductRepository";
+import { ProductRepository } from "@/repositories/ProductRepository";
+import { UnpublishedProductRepository } from "@/repositories/UnpublishedProductRepository";
 import { UnpublishedProductService } from "@/services/UnpublishedProductService";
 
 const unpublished_product_repository = new UnpublishedProductRepository();
-const unpublished_product_service = new UnpublishedProductService(unpublished_product_repository);
+const product_repository = new ProductRepository()
+const unpublished_product_service = new UnpublishedProductService(unpublished_product_repository, product_repository);
 const unpublished_product_controller = new UnpublishedProductController(unpublished_product_service);
 
 export const GET = unpublished_product_controller.findOne.bind(unpublished_product_controller);
