@@ -2,6 +2,7 @@ import { CreateUnpublishedProductDto, UpdateUnpublishedProductDto } from '@/dtos
 import { UnpublishedProductEntity } from '@/entities/UnpublishedProduct';
 import { ProductRepository } from '@/repositories/ProductRepository';
 import { UnpublishedProductRepository } from '@/repositories/UnpublishedProductRepository';
+import { CreateUnpublishedProductSchema, UpdateUnpublishedProductSchema } from './UnpublishedProductSchema';
 
 export class UnpublishedProductService {
   constructor(
@@ -10,7 +11,12 @@ export class UnpublishedProductService {
   ) {}
 
   async findOne(id: number): Promise<UnpublishedProductEntity> {
-    return await this.unpublished_product_repository.findOne(id);
+    const unpublished_product = await this.unpublished_product_repository.findOne(id)
+    if (!unpublished_product) {
+      throw new Error("Unpublished product does not exists.")
+    }
+
+    return unpublished_product;
   }
 
   async getAll(): Promise<UnpublishedProductEntity[]> {
@@ -18,17 +24,24 @@ export class UnpublishedProductService {
   }
 
   async store({operation_id, deleted_product_id, new_product}: CreateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
-    if (deleted_product_id) {
-      await this.product_repository.findOne(deleted_product_id)
+    const validated_data = CreateUnpublishedProductSchema.parse({
+      operation_id,
+      new_product,
+      deleted_product_id
+    });
+
+    if (validated_data.deleted_product_id) {
+      await this.product_repository.findOne(validated_data.deleted_product_id)
     }
 
-    const new_product_id = new_product ? (await this.product_repository.store(new_product)).id : undefined
+    const new_product_id = validated_data.new_product 
+      ? (await this.product_repository.store(validated_data.new_product)).id 
+      : undefined
 
-    console.log(new_product, new_product_id)
     const unpublished_product = await this.unpublished_product_repository.store({
-      operation_id,
-      deleted_product_id,
-      new_product_id: new_product_id
+      operation_id: validated_data.operation_id,
+      deleted_product_id: validated_data.deleted_product_id,
+      new_product_id
     })
 
     return unpublished_product;
@@ -40,16 +53,26 @@ export class UnpublishedProductService {
     new_product,
     deleted_product_id 
   }: UpdateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
-    await this.unpublished_product_repository.findOne(id);
+    const validated_data = UpdateUnpublishedProductSchema.parse({
+      id,
+      operation_id,
+      new_product,
+      deleted_product_id
+    });
 
-    if (deleted_product_id) {
-      await this.product_repository.findOne(deleted_product_id)
+    const unpublished_product = await this.unpublished_product_repository.findOne(validated_data.id)
+    if (!unpublished_product) {
+      throw new Error("Unpublished product does not exists.")
+    }
+
+    if (validated_data.deleted_product_id) {
+      await this.product_repository.findOne(validated_data.deleted_product_id)
     }
 
     let new_product_id
-    if (new_product) {
-      await this.product_repository.findOne(new_product.id)
-      new_product_id = (await this.product_repository.update(new_product)).id
+    if (validated_data.new_product) {
+      await this.product_repository.findOne(validated_data.new_product.id)
+      new_product_id = (await this.product_repository.update(validated_data.new_product)).id
     }
 
     const unpublished_product_updated = await this.unpublished_product_repository.update({ 
@@ -64,6 +87,10 @@ export class UnpublishedProductService {
 
   async delete(id: number): Promise<void> {
     const unpublished_product = await this.unpublished_product_repository.findOne(id)
+    if (!unpublished_product) {
+      throw new Error("Unpublished product does not exists.")
+    }
+
     if (unpublished_product.new_product_id) {
       await this.product_repository.delete(unpublished_product.new_product_id)
     }

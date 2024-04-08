@@ -17,8 +17,8 @@ export class UnpublishedProductRepository {
     return unpublishedProducts;
   }
 
-  async findOne(id: number): Promise<UnpublishedProductEntity> {
-    const unpublished_product = await prisma.unpublishedProduct.findFirstOrThrow({
+  async findOne(id: number): Promise<UnpublishedProductEntity | null> {
+    const unpublished_product = await prisma.unpublishedProduct.findFirst({
       where: {
         id
       },
