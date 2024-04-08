@@ -24,6 +24,7 @@ export class UnpublishedProductService {
   }
 
   async store({operation_id, deleted_product_id, new_product}: CreateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
+    console.log({operation_id, deleted_product_id, new_product})
     const validated_data = CreateUnpublishedProductSchema.parse({
       operation_id,
       new_product,
