@@ -14,3 +14,13 @@ npx prisma migrate reset
 
 ### Run seeders
 npm run seed:operations
+
+### Run tests
+npm run test
+
+### Tests results
+![Tests](tests.png)
+
+### Diagram
+![Diagram](diagram.png)
+
