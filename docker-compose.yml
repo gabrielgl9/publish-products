@@ -9,6 +9,7 @@ services:
       - '.:/usr/src'
     environment:
       - NODE_ENV=development
+      - DATABASE_URL=postgresql://myuser:mypassword@db:5432/mydatabase
     depends_on:
       - db
 
