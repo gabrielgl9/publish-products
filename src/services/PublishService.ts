@@ -18,7 +18,7 @@ export class PublishService {
     protected product_repository: IProductRepository
   ) {}
 
-  async publish({unpublished_product_id, observation}: PublishDto) { 
+  async publish({unpublished_product_id, observation}: PublishDto): Promise<PublishedProductEntity | { message: string}> { 
     const unpublished_product = await this.unpublished_product_repository.findOne(unpublished_product_id)
     if (!unpublished_product) {
       throw new Error("Unpublished product does not exists.")
@@ -63,7 +63,7 @@ export class PublishService {
     })
   }
 
-  private async deletePublish({deleted_product_id}: PublishActionDto): Promise<object> {
+  private async deletePublish({deleted_product_id}: PublishActionDto): Promise<{ message: string}> {
     const validated_data = DeletePublishSchema.parse({
       deleted_product_id,
     })

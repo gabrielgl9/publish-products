@@ -13,7 +13,7 @@ export class PublishedProductRepository implements IPublishedProductRepository {
   async findOne(id: number): Promise<PublishedProductEntity> {
     const publishedProduct = this.publishedProducts.find(p => p.id === id);
     if (!publishedProduct) {
-      throw new Error('Published product not found');
+      throw new Error('Published product does not exists.');
     }
     return publishedProduct;
   }

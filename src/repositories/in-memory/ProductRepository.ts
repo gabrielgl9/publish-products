@@ -9,7 +9,7 @@ export class ProductRepository implements IProductRepository {
   async findOne(id: number): Promise<ProductEntity> {
     const product = this.products.find(p => p.id === id);
     if (!product) {
-      throw new Error('Product not found');
+      throw new Error('Product does not exists.');
     }
     return product;
   }
@@ -30,7 +30,7 @@ export class ProductRepository implements IProductRepository {
   async update({ id, name, price }: UpdateProductDto): Promise<ProductEntity> {
     const index = this.products.findIndex(p => p.id === id);
     if (index === -1) {
-      throw new Error('Product not found');
+      throw new Error('Product does not exists.');
     }
     
     this.products[index] = {

@@ -31,7 +31,7 @@ export class UnpublishedProductRepository implements IUnpublishedProductReposito
   async update({ id, operation_id, deleted_product_id, new_product_id }: UpdateUnpublishedProductDto): Promise<UnpublishedProductEntity> {
     const index = this.unpublished_products.findIndex(p => p.id === id);
     if (index === 1) {
-      throw new Error('Unpublished product not found');
+      throw new Error('Unpublished product does not exists.');
     }
 
     this.unpublished_products[index] = {
