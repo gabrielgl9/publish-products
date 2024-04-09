@@ -1,5 +1,5 @@
 export interface PublishDto {
-  unpublished_id: number
+  unpublished_product_id: number
   observation?: string
 }
 

@@ -10,7 +10,8 @@ export class UnpublishedProductRepository {
     const unpublishedProducts = await prisma.unpublishedProduct.findMany({
       include: {
         new_product: true,
-        deleted_product: true
+        deleted_product: true,
+        operation: true
       },
     });
 
@@ -24,7 +25,8 @@ export class UnpublishedProductRepository {
       },
       include: {
         new_product: true,
-        deleted_product: true
+        deleted_product: true,
+        operation: true
       }
     });
 

@@ -18,8 +18,8 @@ export class PublishService {
     protected product_repository: ProductRepository
   ) {}
 
-  async publish({unpublished_id, observation}: PublishDto) { 
-    const unpublished_product = await this.unpublished_product_repository.findOne(unpublished_id)
+  async publish({unpublished_product_id, observation}: PublishDto) { 
+    const unpublished_product = await this.unpublished_product_repository.findOne(unpublished_product_id)
     if (!unpublished_product) {
       throw new Error("Unpublished product does not exists.")
     }
@@ -30,7 +30,7 @@ export class PublishService {
       observation
     })
 
-    await this.unpublished_product_repository.delete(unpublished_id)
+    await this.unpublished_product_repository.delete(unpublished_product_id)
 
     return publish
   }
