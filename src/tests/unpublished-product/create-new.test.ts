@@ -1,8 +1,8 @@
 import { ZodError } from "zod";
 import { createUnpublishedProductFake } from "../faker";
-import { UnpublishedProductRepository } from "@/repositories/prismadb/UnpublishedProductRepository";
-import { ProductRepository } from "@/repositories/prismadb/ProductRepository";
 import { UnpublishedProductService } from "@/services/UnpublishedProductService";
+import { UnpublishedProductRepository } from "@/repositories/in-memory/UnpublishedProductRepository";
+import { ProductRepository } from "@/repositories/in-memory/ProductRepository";
 
 const unpublished_product_repository = new UnpublishedProductRepository();
 const product_repository = new ProductRepository();
