@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const [publishedProducts, setPublishedProducts] = useState<IPublishedProduct[]>([]);
   const [operationId, setOperationId] = useState('')
-  const [deletedPublishedProductId, setDeletedPublishedProductId] = useState('')
+  const [deletedProductId, setDeletedProductId] = useState('')
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
 
@@ -29,7 +29,7 @@ export default function Page() {
         },
         body: JSON.stringify({
           operation_id: operationId ? Number(operationId) : undefined,
-          deleted_product_id: deletedPublishedProductId ? Number(deletedPublishedProductId) : undefined,
+          deleted_product_id: deletedProductId ? Number(deletedProductId) : undefined,
           new_product: operationId !== '3' ? {
             name,
             price: Number(price) 
@@ -78,12 +78,12 @@ export default function Page() {
           <select 
             name="deleted_published_product" 
             id="deleted_published_product_id" 
-            value={deletedPublishedProductId} 
+            value={deletedProductId} 
             className="text-black bg-white p-4 rounded-lg border outline-none mt-4 cursor-pointer"
-            onChange={(e) => setDeletedPublishedProductId(e.target.value)}>
+            onChange={(e) => setDeletedProductId(e.target.value)}>
               <option value="">Select</option>
               {publishedProducts.length > 0 && publishedProducts.map(publishedProduct => (
-                <option key={publishedProduct.id} value={publishedProduct.id}> 
+                <option key={publishedProduct.id} value={publishedProduct.product.id}> 
                   {publishedProduct.product.id + ' - ' + publishedProduct.product.name }
                 </option>
               ))}

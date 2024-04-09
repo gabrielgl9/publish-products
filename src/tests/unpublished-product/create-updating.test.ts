@@ -27,7 +27,7 @@ test('should store an unpublished product to replace an existing published produ
       name: "New machine name",
       price: 800
     },
-    deleted_product_id: published_product.id,
+    deleted_product_id: published_product.product_id,
     operation_id: 2
   }
 

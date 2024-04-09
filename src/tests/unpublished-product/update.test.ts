@@ -69,20 +69,3 @@ test('should get error to try updating inexistent unpublished product', async ()
     expect((error as Error).message).toBe('Unpublished product does not exists.');
   }
 });
-
-// test('store existing unpublished product', async () => {  
-//   const request_body = {
-//     new_product: {
-//       name: "Machine D",
-//       price: 525.99
-//     },
-//     deleted_product_id: 6,
-//     operation_id: 1
-//   }
-
-//   const response = await unpublished_product_service.store(request_body)
-
-//   expect(response).toHaveProperty('id');
-//   expect(typeof response.id).toBe('number');
-// });
-

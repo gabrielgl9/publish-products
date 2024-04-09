@@ -23,7 +23,7 @@ test('should store an unpublished product to remove an existing published produc
   const published_product = await createPublishFake(publish_service, unpublished_product.id) as PublishedProductEntity
   
   const request_body = {
-    deleted_product_id: published_product.id,
+    deleted_product_id: published_product.product_id,
     operation_id: 3
   }
 

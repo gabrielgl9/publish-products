@@ -12,7 +12,7 @@ export default function Details() {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [observation, setObservation] = useState('')
-  const [deletedPublishedProductId, setDeletedPublishedProductId] = useState('')
+  const [deletedProductId, setDeletedPublishedProductId] = useState('')
 
   const { id } = useParams()
 
@@ -45,7 +45,7 @@ export default function Details() {
         },
         body: JSON.stringify({
           operation_id: unpublishedProduct?.operation.id,
-          deleted_product_id: deletedPublishedProductId ? Number(deletedPublishedProductId) : undefined,
+          deleted_product_id: deletedProductId ? Number(deletedProductId) : undefined,
           new_product: unpublishedProduct?.new_product ? {
             id: unpublishedProduct?.new_product.id,
             name,
@@ -149,7 +149,7 @@ export default function Details() {
               <select 
                 name="deleted_published_product" 
                 id="deleted_published_product_id" 
-                value={deletedPublishedProductId} 
+                value={deletedProductId} 
                 className="text-black bg-white p-4 rounded-lg border outline-none my-4 cursor-pointer w-full"
                 onChange={(e) => setDeletedPublishedProductId(e.target.value)}>
                   {publishedProducts.length > 0 && publishedProducts.map(publishedProduct => (
