@@ -19,8 +19,8 @@ npm run seed:operations
 npm run test
 
 ### Tests results
-![Tests](tests.png)
+![Tests](public/tests.png)
 
 ### Diagram
-![Diagram](diagram.png)
+![Diagram](public/diagram.png)
 
