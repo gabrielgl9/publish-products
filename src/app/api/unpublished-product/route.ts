@@ -1,6 +1,6 @@
 import { UnpublishedProductController } from "@/controllers/UnpublishedProductController";
-import { ProductRepository } from "@/repositories/ProductRepository";
-import { UnpublishedProductRepository } from "@/repositories/UnpublishedProductRepository";
+import { ProductRepository } from "@/repositories/prismadb/ProductRepository";
+import { UnpublishedProductRepository } from "@/repositories/prismadb/UnpublishedProductRepository";
 import { UnpublishedProductService } from "@/services/UnpublishedProductService";
 
 const unpublished_product_repository = new UnpublishedProductRepository();

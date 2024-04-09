@@ -1,8 +1,8 @@
 import { PublishActionDto, PublishDto } from '@/dtos/PublishDto';
 import { PublishedProductEntity } from '@/entities/PublishedProduct';
-import { ProductRepository } from '@/repositories/ProductRepository';
-import { PublishedProductRepository } from '@/repositories/PublishedProductRepository';
-import { UnpublishedProductRepository } from '@/repositories/UnpublishedProductRepository';
+import { IProductRepository } from '@/repositories/IProductRepository';
+import { IPublishedProductRepository } from '@/repositories/IPublishedProductRepository';
+import { IUnpublishedProductRepository } from '@/repositories/IUnpublishedProductRepository';
 import { CreatePublishSchema, DeletePublishSchema, UpdatePublishSchema } from './PublishSchema';
 
 export class PublishService {
@@ -13,9 +13,9 @@ export class PublishService {
   ];
 
   constructor(
-    protected unpublished_product_repository: UnpublishedProductRepository,
-    protected published_product_repository: PublishedProductRepository,
-    protected product_repository: ProductRepository
+    protected unpublished_product_repository: IUnpublishedProductRepository,
+    protected published_product_repository: IPublishedProductRepository,
+    protected product_repository: IProductRepository
   ) {}
 
   async publish({unpublished_product_id, observation}: PublishDto) { 

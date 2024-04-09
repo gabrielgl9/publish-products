@@ -1,5 +1,5 @@
 import { PublishedProductController } from '@/controllers/PublishedProductController';
-import { PublishedProductRepository } from '@/repositories/PublishedProductRepository';
+import { PublishedProductRepository } from '@/repositories/prismadb/PublishedProductRepository';
 import { PublishedProductService } from '@/services/PublishedProductService';
 
 const published_product_repository = new PublishedProductRepository();

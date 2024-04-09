@@ -1,10 +1,11 @@
 import { CreatePublishedProductDto } from '@/dtos/PublishedProductDto';
 import { PublishedProductEntity } from '@/entities/PublishedProduct';
 import { PrismaClient } from '@prisma/client';
+import { IPublishedProductRepository } from '../IPublishedProductRepository';
 
 const prisma = new PrismaClient();
 
-export class PublishedProductRepository {
+export class PublishedProductRepository implements IPublishedProductRepository {
 
   async getAll(): Promise<PublishedProductEntity[]> {
     return await prisma.publishedProduct.findMany({

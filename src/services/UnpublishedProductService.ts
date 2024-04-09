@@ -1,13 +1,13 @@
 import { CreateUnpublishedProductDto, UpdateUnpublishedProductDto } from '@/dtos/UnpublishedProductDto';
 import { UnpublishedProductEntity } from '@/entities/UnpublishedProduct';
-import { ProductRepository } from '@/repositories/ProductRepository';
-import { UnpublishedProductRepository } from '@/repositories/UnpublishedProductRepository';
+import { IProductRepository } from '@/repositories/IProductRepository';
+import { IUnpublishedProductRepository } from '@/repositories/IUnpublishedProductRepository';
 import { CreateUnpublishedProductSchema, UpdateUnpublishedProductSchema } from './UnpublishedProductSchema';
 
 export class UnpublishedProductService {
   constructor(
-    protected unpublished_product_repository: UnpublishedProductRepository,
-    protected product_repository: ProductRepository
+    protected unpublished_product_repository: IUnpublishedProductRepository,
+    protected product_repository: IProductRepository
   ) {}
 
   async findOne(id: number): Promise<UnpublishedProductEntity> {

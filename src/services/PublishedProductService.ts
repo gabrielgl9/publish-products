@@ -1,9 +1,9 @@
 import { PublishedProductEntity } from '@/entities/PublishedProduct';
-import { PublishedProductRepository } from './../repositories/PublishedProductRepository';
+import { IPublishedProductRepository } from '@/repositories/IPublishedProductRepository';
 
 export class PublishedProductService {
   constructor(
-    protected published_product_repository: PublishedProductRepository
+    protected published_product_repository: IPublishedProductRepository
   ) {}
 
   async findOne(id: number): Promise<PublishedProductEntity> {
