@@ -1,3 +1,6 @@
+import Anchor from '../components/anchor'
+import Button from '../components/button'
+import Card from '../components/card'
 import { IOperation } from '../interfaces/operation.interface'
 import { IProduct } from '../interfaces/product.interface'
 
@@ -15,7 +18,7 @@ export default function UnpublishedCard({
   unpublishedProductId 
 }: IUnpublishedCard) {
   return (
-    <div className='rounded-md bg-white p-4'>
+    <Card>
       <span className='text-lg'>Operation: #{operation.id} - {operation.description}</span>
 
       {new_unpublished_product && (
@@ -32,11 +35,10 @@ export default function UnpublishedCard({
         </div>
       )}
 
-      <div className='flex items-center justify-center w-full mt-8'>
-        <a href={`/admin/${unpublishedProductId}`} className='bg-black text-white p-4 w-full text-center'>
-          See Details
-        </a>
-      </div>
-    </div>
+      <Anchor href={`/admin/${unpublishedProductId}`}>
+        <Button text='Details' />
+      </Anchor>
+
+    </Card>
   )
 }

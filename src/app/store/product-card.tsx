@@ -1,3 +1,6 @@
+import Anchor from '../components/anchor';
+import Button from '../components/button';
+import Card from '../components/card';
 import { IProduct } from '../interfaces/product.interface'
 
 interface IProductCard {
@@ -9,17 +12,16 @@ export default function ProductCard({ product, publishedProductId }: IProductCar
   const { id, name, price } = product;
   
   return (
-    <div className='rounded-md bg-white'>
+    <Card>
       <img src="image-example.webp" alt="" />
       <div className='flex justify-between p-4'>
         <span className='text-lg'>#{id} - {name}</span>
         <span className='text-3xl'>{price} U$ </span>
       </div>
-      <div className='flex items-center justify-center w-full'>
-        <a href={`/store/${publishedProductId}`} className='bg-black text-white p-4 w-full text-center'>
-          See Details
-        </a>
-      </div>
-    </div>
+
+      <Anchor href={`/store/${publishedProductId}`}>
+        <Button text='Details' />
+      </Anchor>
+    </Card>
   )
 }

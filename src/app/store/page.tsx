@@ -3,15 +3,16 @@
 import { useEffect, useState } from 'react';
 import { IPublishedProduct } from '../interfaces/published-product.interface';
 import ProductCard from './product-card';
+import { fetchApi } from '../utils/fetch-api';
 
 export default function Page() {
   const [publishedProducts, setPublishedProducts] = useState<IPublishedProduct[]>([]);
 
   useEffect(() => {
-    fetch('/api/published-product')
-      .then(response => response.json())
-      .then(response => setPublishedProducts(response.data))
-      .catch(error => console.error('Erro ao fazer a requisição:', error));
+    fetchApi({
+      url: '/api/published-product',
+      method: 'GET'
+    }).then(response => setPublishedProducts(response.data))
   }, []);
 
   return (
