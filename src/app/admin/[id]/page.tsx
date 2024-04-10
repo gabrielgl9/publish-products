@@ -3,13 +3,10 @@
 import Anchor from '@/app/components/anchor';
 import Button from '@/app/components/button';
 import Input from '@/app/components/input';
-import { IPublishedProduct } from '@/app/interfaces/published-product.interface';
-import { IUnpublishedProduct } from '@/app/interfaces/unpublished-product.interface';
 import { fetchApi } from '@/app/utils/fetch-api';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Actions from './actions';
-import Card from '@/app/components/card';
 
 export default function Details() {
   const [observation, setObservation] = useState('')

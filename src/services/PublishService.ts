@@ -30,7 +30,9 @@ export class PublishService {
       observation
     })
 
-    await this.unpublished_product_repository.delete(unpublished_product_id)
+    if (unpublished_product.operation_id !== 3) {
+      await this.unpublished_product_repository.delete(unpublished_product_id)
+    }
 
     return publish
   }
@@ -54,6 +56,7 @@ export class PublishService {
       observation,
     })
 
+    await this.unpublished_product_repository.updateByDeletedProduct(validated_data.deleted_product_id, validated_data.new_product_id)
     await this.published_product_repository.deleteByProduct(validated_data.deleted_product_id)
     await this.product_repository.delete(validated_data.deleted_product_id)
 
@@ -68,6 +71,7 @@ export class PublishService {
       deleted_product_id,
     })
 
+    await this.unpublished_product_repository.deleteByDeletedProduct(validated_data.deleted_product_id)
     await this.published_product_repository.deleteByProduct(validated_data.deleted_product_id)
     await this.product_repository.delete(validated_data.deleted_product_id)
 

@@ -23,7 +23,6 @@ export const fetchApi = async ({
   const response = await fetch(url, options);
 
   if (!response.ok) {
-    console.log(response)
     throw new Error('Error to send data');
   }
 

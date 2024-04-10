@@ -68,9 +68,28 @@ export class UnpublishedProductRepository implements IUnpublishedProductReposito
     return updated_unpublished_product;
   }
 
+  async updateByDeletedProduct(old_deleted_product_id: number, new_deleted_product_id: number): Promise<void> {
+    await prisma.unpublishedProduct.updateMany({
+      where: { 
+        deleted_product_id: old_deleted_product_id
+      },
+      data: {
+        deleted_product_id: new_deleted_product_id
+      }
+    });
+  }
+
   async delete(id: number): Promise<void> {
     await prisma.unpublishedProduct.delete({
       where: { id },
+    });
+  }
+
+  async deleteByDeletedProduct(deleted_product_id: number): Promise<void> {
+    await prisma.unpublishedProduct.deleteMany({
+      where: { 
+       deleted_product_id,
+      },
     });
   }
 }

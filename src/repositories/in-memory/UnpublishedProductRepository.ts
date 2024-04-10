@@ -45,10 +45,24 @@ export class UnpublishedProductRepository implements IUnpublishedProductReposito
 
   }
 
+  async updateByDeletedProduct(oldDeletedProductId: number, newDeletedProductId: number): Promise<void> {
+    this.unpublished_products.forEach(unpublished_product => {
+      if (unpublished_product.deleted_product_id === oldDeletedProductId) {
+        unpublished_product.deleted_product_id = newDeletedProductId;
+      }
+    });
+  }
+
   async delete(id: number): Promise<void> {
     const index = this.unpublished_products.findIndex(p => p.id === id);
     if (index !== -1) {
       this.unpublished_products.splice(index, 1);
     }
+  }
+
+  async deleteByDeletedProduct(deleted_product_id: number): Promise<void> {
+    this.unpublished_products = this.unpublished_products.filter(
+      product => product.deleted_product_id !== deleted_product_id
+    );
   }
 }
